@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        .thumb-contenido{
+            margin-bottom:1%;
+            margin-left: 0px;
+            padding-left: 0px;
+        }
+        input, textarea {
+        outline: none;
+        border: none;
+        display: block;
+        margin: 0;
+        padding: 0;
+        -webkit-font-smoothing: antialiased;
+        font-family: "PT Sans", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+        font-size: 1rem;
+        color: #555f77;
+        }
+        input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+        color: #ced2db;
+        }
+        input::-moz-placeholder, textarea::-moz-placeholder {
+        color: #ced2db;
+        }
+        input:-moz-placeholder, textarea:-moz-placeholder {
+        color: #ced2db;
+        }
+        input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+        color: #ced2db;
+        }
+
+        p {
+        line-height: 1.3125rem;
+        }
+
+        .comments {
+        margin: 2.5rem auto 0;
+        max-width: 60.75rem;
+        padding: 0 1.25rem;
+        }
+
+        .comment-wrap {
+        margin-bottom: 1.25rem;
+        display: table;
+        width: 100%;
+        min-height: 5.3125rem;
+        }
+
+        .photo {
+        padding-top: 0.625rem;
+        display: table-cell;
+        width: 3.5rem;
+        }
+        .photo .avatar {
+        height: 2.25rem;
+        width: 2.25rem;
+        border-radius: 50%;
+        background-size: contain;
+        }
+
+        .comment-block {
+        padding: 1rem;
+        background-color: #fff;
+        display: table-cell;
+        vertical-align: top;
+        border-radius: 0.1875rem;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+        }
+        .comment-block textarea {
+        width: 100%;
+        resize: none;
+        }
+
+        .comment-text {
+        margin-bottom: 1.25rem;
+        }
+
+        .bottom-comment {
+        color: #acb4c2;
+        font-size: 0.875rem;
+        }
+
+        .comment-date {
+        float: left;
+        }
+
+        .comment-actions {
+        float: right;
+        }
+        .comment-actions li {
+        display: inline;
+        margin: -2px;
+        cursor: pointer;
+        }
+        .comment-actions li.complain {
+        padding-right: 0.75rem;
+        border-right: 1px solid #e1e5eb;
+        }
+        .comment-actions li.reply {
+        padding-left: 0.75rem;
+        padding-right: 0.125rem;
+        }
+        .comment-actions li:hover {
+        color: #0095ff;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Accueil<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Inscription</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Connexion</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  username
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Profil</a>
+                  <a class="dropdown-item" href="#">Deconnexion</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Admin
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Gestion des posts</a>
+                  <a class="dropdown-item" href="#">Gestion des commentaires</a>
+                </div>
+              </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          </div>
+        </nav>
+
+
+    <div class="container">
+        
+        <div class="well"> 
+            <div class="row">
+                <div class="col-md-12">                        
+                    <div class="">
+                        <h1  class="hidden-xs hidden-sm">{{ post.title }}</h1>
+                        <hr>
+                        <small>{{ post.datePosted | date('d/m/Y - H:i:s') }}</small><br>
+                        <div>
+                            <div class="pull-left col-md-4 col-xs-12 thumb-contenido"><img class="center-block img-responsive" src='{{ asset('/photo/' ~ post.image ) }}'/></div>
+                            <small><strong>user :{{ post.id}}</strong></small>
+                        </div>
+                        
+                        <hr>
+                        <p class="text-justify">{{ post.content }}</p>
+                        <hr>
+                        <h5>Commentaires ({{ comments | length }}) </h5>
+                        <div class="comments">
+                            <div class="comment-wrap">
+                                <div class="photo">
+                                    <div class="avatar"><img class="center-block img-responsive" src='{{ asset('/photo/' ~ post.image ) }}' style="border-radius:100%;width:100%;height:100%;" /></div>
+                                    <p>user {{post.id}}</p>                               
+                               </div>
+                                <div class="comment-block">
+                                    <form action="">
+                                        <textarea name="" id="" cols="30" rows="3" placeholder="Add comment..."></textarea>
+                                    </form>
+                                </div>
+                            </div>
+                            {% for comment in comments %}
+                            <div class="comment-wrap">
+                                <div class="photo">
+                                    <div class="avatar" style="background-image: url('https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg')"></div>
+                                    <p>{{comment.pseudo}}</p>
+                                </div>
+                                <div class="comment-block">
+                                    <p class="comment-text">{{ comment.content }}</p>
+                                    <div class="bottom-comment">
+                                        <div class="comment-date">{{ comment.datePosted | date('d/m/Y - H:i:s')}}</div>
+                                        <ul class="comment-actions">
+                                            <li class="complain">Complain</li>
+                                            <li class="reply">Reply</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
