@@ -2,34 +2,29 @@
 
 namespace App\Form;
 
-use App\Entity\Post;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-class PostType extends AbstractType
+class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('content')
-            ->add('file', FileType::class, array(
-                'required' => false
-            ))
-            // ->add('datePosted')
-            ->add('category')
-            ->add('Ajouter', SubmitType::class)
+            ->add('username')
+            ->add('password')
+            ->add('email')
+            ->add('Inscription', SubmitType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Post::class,
+            'data_class' => User::class,
         ]);
     }
 }

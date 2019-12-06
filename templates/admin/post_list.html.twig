@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %} 
+
+{% block content %}
+<div class="container marketing">
+    <h1> Gestion des posts </h1>
+    <a class="btn btn-success m-5" href="{{ path('admin_post_add')}}">Ajouter un post</a>
+    <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Image</th>
+            <th scope="col">Title</th>
+            <th scope="col">View</th>
+            <th scope="col">Date</th>
+            <th colspan="2">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in posts %}
+        <tr>
+            <th scope="row">{{p.id}}</th>
+            <td><img src="{{ asset('/photo/' ~ p.image)}}" height="50"></td>
+            <td>{{p.title}}</td>
+            <td>{{p.content | slice(0, 40)}}...</td>
+            <td>{{p.datePosted | date('d/m/Y')}}</td>
+
+            <td><a href="{{ path('admin_post_update', { id: p.id}) }}"><i class="fas fa-edit"></i></a></td>            
+            <td><a href="{{ path('admin_post_delete', { id: p.id}) }}"><i class="fas fa-trash-alt"></i></a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+</div>
+{% endblock %}
+    

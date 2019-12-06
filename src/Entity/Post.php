@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
@@ -30,6 +31,9 @@ class Post
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
+
+    private $file; // non mappé car pas en BDD
+
 
     /**
      * @ORM\Column(type="datetime")
@@ -104,5 +108,32 @@ class Post
         $this->category = $category;
 
         return $this;
+    }
+
+    public function getFile(){
+        return $this -> file;
+    }
+    public function setFile(UploadedFile $file = NULL){
+        $this -> file = $file;
+        return $this;
+    }
+    public function uploadFile(){
+        $name = $this -> file -> getClientOriginalName();
+        $new_name = 'photo_' . time() . '_' . rand(1, 9999) . '_' . $name;
+        $dirPhoto = __DIR__ . '/../../public/photo/';
+        $this -> file -> move($dirPhoto, $new_name);
+        $this -> image = $new_name;
+
+        //On récupère le nom original de l'image
+        //On renomme l'image
+        //On définie le chemin du dossier photo
+        //On déplace la photo depuis son emplacement temporaire jusqu'à son emplacement définitif.active
+        // On enregistre en BDD le nouveau nom de la photo
+    }
+    public function removeFile(){
+        if(file_exists(__DIR__ . '/../../public/photo/' . $this -> image)){
+            unlink(__DIR__ . '/../../public/photo/' . $this -> image);
+            //Si l'image du fichier existe alors on le supprime (lorsqu'on supprimera un post, on modifiera l'image d'un post)
+        }
     }
 }
